@@ -28,50 +28,36 @@ public class ServerOperacion {
 
             while (true) {
                 Socket client = null;
+                //try-with-resources para el ServerSocket (se cierra automáticamente al salir).
                 try {
                     // Espera hasta que un cliente se conecte
                     client = server.accept();
-                    System.out.println("Nuevo cliente conectado: " + client.getInetAddress());
+                    System.out.println("Nuevo cliente conectado: " + client); // imprimimos el socket porque socket tiene un toString() que muestra la informacion
+                    //System.out.println("Nuevo cliente conectado: " + client.getInetAddress()); // Eso solo muestra la IP
 
                     System.out.println("Asignando nuevo hilo para este cliente");
 
-                    // pasando cliente + salida y entrada
-                    //ClientHandlerOperacion handler = new ClientHandlerOperacion(client);
-                    //handler.start();
-
+                    
                     // Obtener los flujos de entrada y salida 
                     DataInputStream dis = new DataInputStream(client.getInputStream()); // entrada
                     DataOutputStream dos = new DataOutputStream(client.getOutputStream()); // salida
                     
-                     // 
+                     // crear un handler para pararle el socket y flujos
                     ClientHandlerOperacion handler = new ClientHandlerOperacion(client, dis, dos);
-                    handler.start();
+                    
+                    handler.start();    // aquí se inicia el hilo de run() (método start() de Thread)
+                    
                     // posible erro aqui
                     //crear un handler pasandole socket y flujos
                     //ClientHandlerOperacion handler = new ClientHandlerOperacion(client, dis, dos);
                     //handler.start();  // aquí se inicia el hilo (método start() de Thread)
                     // hasta aqui
-                    // Flujo de entrada: recibe datos del cliente
-                    //BufferedReader fromClient =
-                    //       new BufferedReader(
-                    //            new InputStreamReader(client.getInputStream()));
-                    // Flujo de salida: envía datos al cliente
-                    //PrintStream toClient =
-                    //      new PrintStream(client.getOutputStream());
-                    // Leer mensaje completo (ejemplo: 5,3,1)
-                    //String recibido = fromClient.readLine();
-                    //System.out.println("Mensaje recibido: " + recibido);
-                    // Llamar a la clase externa para procesar
-                    //String respuesta = Operaciones.procesarSolicitud(recibido);
-                    // Enviar resultado al cliente
-                    //toClient.println(respuesta);
-                    //client.close();
-                    //System.out.println("Cliente desconectado\n");
+
                 } catch (IOException e) {
                     if (client != null) {
-                        client.close();
+                        client.close(); // libera el puerto
                     }
-                    e.getMessage();
+                    e.printStackTrace();
                 }
             }
 

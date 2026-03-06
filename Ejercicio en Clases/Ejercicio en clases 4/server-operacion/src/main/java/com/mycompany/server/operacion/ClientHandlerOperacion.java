@@ -19,43 +19,32 @@ public class ClientHandlerOperacion extends Thread {
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    // Constructor adicional que recibe socket y flujos (estilo ingeniero)
+    // Constructor adicional que recibe socket y flujos 
     public ClientHandlerOperacion(Socket client, DataInputStream dis, DataOutputStream dos) {
         this.client = client;
         this.dis = dis;
         this.dos = dos;
     }
 
-    // Constructor que recibira el socket del cliente
-    public ClientHandlerOperacion(Socket client) {
-        this.client = client;
-        try {
-            // Crear los flujos de entrrada y salida
-            this.dis = new DataInputStream(client.getInputStream());
-            this.dos = new DataOutputStream(client.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void run() {
         try {
             // Leer las lineas enviadas por el cliente
-            String recibido = dis.readUTF(); //usamos readUTF() porque dataInputStream
+            String recibido = dis.readUTF(); //usamos readUTF() porque dataInputStream      readUTF() esto reconstruye el String original
             System.out.println("Mensaje recibido: " + recibido);
 
             // procesar respuesta con la clase operaciones
             String respuesta = Operaciones.procesarSolicitud(recibido);
 
             // enviamos el resultado
-            dos.writeUTF(respuesta);
+            dos.writeUTF(respuesta); //ese metodo maneja la longitud automaticamente;
 
             // cerrar recursoas
             dis.close();
             dos.close();
             client.close();
-            System.out.println("Cliente desconectado: " + client.getInetAddress());
+            System.out.println("Cliente desconectado: " + client); // imprimimos el socket porque socket tiene un toString() que muestra la informacion
+                                                                   // podria ser client.getInetAddresss() pero eso solo devuelve la IP y ya 
 
         } catch (IOException e) {
             System.out.println("Error con el cliente" + e.getMessage());
