@@ -30,14 +30,14 @@ public class ClientHandlerOperacion extends Thread {
     public void run() {
         try {
             // Leer las lineas enviadas por el cliente
-            String recibido = dis.readUTF(); //usamos readUTF() porque dataInputStream      readUTF() esto reconstruye el String original
+            String recibido = dis.readUTF(); //usamos readUTF()porque esto reconstruye el String original en dis porque dataInputStream es la entrada que viene del servidor
             System.out.println("Mensaje recibido: " + recibido);
 
             // procesar respuesta con la clase operaciones
             String respuesta = Operaciones.procesarSolicitud(recibido);
 
             // enviamos el resultado
-            dos.writeUTF(respuesta); //ese metodo maneja la longitud automaticamente;
+            dos.writeUTF(respuesta); //usamos writeUTF porque metodo maneja la longitud automaticamente; en dos porque es DataOutputStreamese oesa la salida devuelta al servidor
 
             // cerrar recursoas
             dis.close();
