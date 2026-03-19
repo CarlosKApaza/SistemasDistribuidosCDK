@@ -105,7 +105,7 @@ public class ServerJuego {
         } else {
             juegoActivo = false;
             enviarATodos("--------------------------------");
-            enviarATodos("!EL JUEGO HA TERMINADO! Gracias por jugar pe.");
+            enviarATodos("!EL JUEGO HA TERMINADO! Muchas Gracias por jugar.");
             mostrarMarcadorFinal();
         }
     }
