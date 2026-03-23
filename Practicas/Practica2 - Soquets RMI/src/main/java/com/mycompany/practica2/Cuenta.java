@@ -6,12 +6,15 @@ package com.mycompany.practica2;
 
 
 import java.io.Serializable;
+
 /**
- *
+ * Representa una cuenta bancaria.
+ * Implementa Serializable para poder viajar por RMI.
  * @author cdk04
  */
 public class Cuenta implements Serializable{
-    private Banco banco;
+    // atributos
+    private Banco banco;  //enum
     private String nrocuenta;
     private String ci;
     private String nombres;
@@ -28,25 +31,55 @@ public class Cuenta implements Serializable{
         this.saldo = saldo;
     }
     
-    // Getters y Setters
-    public Banco getBanco() { return banco; }
-    public void setBanco(Banco banco) { this.banco = banco; }
-
-    public String getNrocuenta() { return nrocuenta; }
-    public void setNrocuenta(String nrocuenta) { this.nrocuenta = nrocuenta; }
-
-    public String getCi() { return ci; }
-    public void setCi(String ci) { this.ci = ci; }
-
-    public String getNombres() { return nombres; }
-    public void setNombres(String nombres) { this.nombres = nombres; }
-
-    public String getApellidos() { return apellidos; }
-    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
-
-    public Double getSaldo() { return saldo; }
-    public void setSaldo(Double saldo) { this.saldo = saldo; }
+    // Getters para acceder a ellos
+    public Banco getBanco() {    
+        return banco;
+    }
     
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    public String getNrocuenta() {
+        return nrocuenta;
+    }
+
+    public void setNrocuenta(String nrocuenta) {
+        this.nrocuenta = nrocuenta;
+    }
+
+    public String getCi() {
+        return ci;
+    }
+
+    public void setCi(String ci) {
+        this.ci = ci;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public Double getSaldo() {
+        return saldo;
+    }
+    
+    public void setSaldo(Double saldo) {  
+        this.saldo = saldo;
+    }
+
     // Un toString para impresión en el cliente Juez
     @Override
     public String toString() {

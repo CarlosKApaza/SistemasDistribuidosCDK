@@ -9,5 +9,7 @@ package com.mycompany.practica2;
  * @author cdk04
  */
 public enum Banco {
-    MERCANTIL, BCP;
+    // enumarado para los bancos
+    MERCANTIL, 
+    BCP
 }
