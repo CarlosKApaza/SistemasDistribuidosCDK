@@ -16,11 +16,11 @@ public class Principal {
         try {
             Scanner sc = new Scanner(System.in);
             System.out.println("Selecciona: \n1- Ejercicio 1 - Sincronizacion \n2- Ejercicio 2 - Votacion");
-            int choice = sc.nextInt();
+            int opcion = sc.nextInt();
             sc.nextLine(); 
-            if (choice == 1) {
+            if (opcion == 1) {
                 new StateSyncCluster().start();
-            } else if (choice == 2) {
+            } else if (opcion == 2) {
                 new Votacion().start();
             }
         } catch (Exception ex) {

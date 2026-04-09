@@ -21,8 +21,9 @@ import org.jgroups.ReceiverAdapter;
 public class Votacion {
 
     private JChannel channel;
-    private List<String> preguntas = new ArrayList<>();
-    private List<Map<String, Integer>> resultados = new ArrayList<>();
+    private List<TemaVotacion> temas = new ArrayList<>();
+    //private List<String> preguntas = new ArrayList<>();
+    //private List<Map<String, Integer>> resultados = new ArrayList<>();
 
     public void start() throws Exception {
         channel = new JChannel();
@@ -33,8 +34,9 @@ public class Votacion {
                 
                 if (content.startsWith("PREGUNTA:")) {
                     String q = content.substring(9).trim();
-                    preguntas.add(q);
-                    resultados.add(new HashMap<>());
+                    //preguntas.add(q);
+                    //resultados.add(new HashMap<>());
+                    temas.add(new TemaVotacion(q));
                     actualizarPantalla();
                     
                 } else if (content.startsWith("VOTO:")) {
@@ -44,9 +46,11 @@ public class Votacion {
                             int indice = Integer.parseInt(partes[0]);
                             String opcion = partes[1].trim().toLowerCase();
                             
-                            if (indice >= 0 && indice < preguntas.size()) {
-                                Map<String, Integer> res = resultados.get(indice);
-                                res.put(opcion, res.getOrDefault(opcion, 0) + 1);
+                            if (indice >= 0 && indice < temas.size()) {
+                                TemaVotacion temaActual = temas.get(indice);
+                                // Usamos el Getter para obtener el mapa y sumarle un voto
+                                temaActual.getResultados().put(opcion, temaActual.getResultados().getOrDefault(opcion, 0) + 1);
+                                //res.put(opcion, res.getOrDefault(opcion, 0) + 1);
                                 actualizarPantalla();
                             }
                         } catch (NumberFormatException e) {
@@ -66,12 +70,13 @@ public class Votacion {
         System.out.println("          SISTEMA DE VOTACION");
         System.out.println("========================================");
         
-        if (preguntas.isEmpty()) {
+        if (temas.isEmpty()) {
             System.out.println("  No hay preguntas registradas todavia.");
         } else {
-            for (int i = 0; i < preguntas.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + preguntas.get(i));
-                System.out.println("    Resultados: " + resultados.get(i));
+            for (int i = 0; i < temas.size(); i++) {
+                TemaVotacion tema = temas.get(i);
+               System.out.println(" " + (i + 1) + ". " + tema.getPregunta());
+                System.out.println("    Resultados: " + tema.getResultados());
                 System.out.println("");
             }
         }
@@ -92,7 +97,7 @@ public class Votacion {
                 channel.send(new Message(null, "PREGUNTA:" + q));
                 
             } else if (op.equals("2")) {
-                if (preguntas.isEmpty()) {
+                if (temas.isEmpty()) {
                     System.out.println("No hay preguntas para votar.");
                     System.out.print("> ");
                     continue;
@@ -102,7 +107,7 @@ public class Votacion {
                 try {
                     int numPregunta = Integer.parseInt(sc.nextLine()) - 1; 
                     
-                    if (numPregunta >= 0 && numPregunta < preguntas.size()) {
+                    if (numPregunta >= 0 && numPregunta < temas.size()) {
                         System.out.print("Tu voto: ");
                         String v = sc.nextLine();
                         channel.send(new Message(null, "VOTO:" + numPregunta + ":" + v));
