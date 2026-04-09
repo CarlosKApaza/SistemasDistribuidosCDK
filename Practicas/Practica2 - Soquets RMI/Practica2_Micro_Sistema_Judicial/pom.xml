@@ -2,15 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
-    <artifactId>com.mycompany_Practica2_jar_1.0-SNAPSHOT</artifactId>
+    <artifactId>Practica2_Micro_Sistema_Judicial</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <modules>
-        <module>com.mycompany_Practica2_jar_1.0-SNAPSHOT</module>
-    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
-        <exec.mainClass>com.mycompany.practica2.Practica2</exec.mainClass>
+        <exec.mainClass>com.mycompany.practica2_micro_sistema_judicial.Practica2_Micro_Sistema_Judicial</exec.mainClass>
     </properties>
 </project>
