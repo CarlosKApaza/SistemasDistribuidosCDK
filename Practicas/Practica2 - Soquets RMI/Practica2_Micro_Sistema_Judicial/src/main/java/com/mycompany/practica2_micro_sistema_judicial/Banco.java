@@ -5,11 +5,9 @@
 package com.mycompany.practica2_micro_sistema_judicial;
 
 /**
- *
+ *  enumarado para los bancos
  * @author cdk04
  */
 public enum Banco {
-    // enumarado para los bancos
-    MERCANTIL, 
-    BCP
+    MERCANTIL, BCP
 }
