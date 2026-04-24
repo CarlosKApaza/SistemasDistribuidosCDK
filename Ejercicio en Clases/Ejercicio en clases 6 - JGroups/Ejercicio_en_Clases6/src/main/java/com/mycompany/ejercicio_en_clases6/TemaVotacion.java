@@ -28,6 +28,4 @@ public class TemaVotacion {
     public Map<String, Integer> getResultados() {
         return resultados;
     }
-
-    
 }
