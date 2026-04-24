@@ -15,7 +15,9 @@ import java.util.ArrayList;
  * @author cdk04
  */
 public class ServidorBienestar extends UnicastRemoteObject implements IBienestar{
-    public ServidorBienestar() throws RemoteException { super(); }
+    public ServidorBienestar() throws RemoteException {
+        super(); 
+    }
     
     
     @Override 
